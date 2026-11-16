@@ -22,3 +22,21 @@ nav button{width:100%;min-height:43px;padding:7px 3px;text-align:center;white-sp
 
 /* ترتيب مجموعات لوحة التحكم */
 .dashboard-group{margin:20px 0}.dashboard-group .section-head{margin:12px 0}.dashboard-group .grid{margin-bottom:12px}
+
+
+/* نافذة مؤشرات لوحة التحكم وإدارة الحماية */
+.dashboard-group{padding:16px 18px;border:1px solid #35445c;border-radius:18px;background:linear-gradient(145deg,#121e30,#0a111d);box-shadow:0 14px 34px #0005,inset 0 1px #fff0}
+.dashboard-group .section-head h2{color:var(--gold2);font-size:16px}
+.dashboard-group .stat{min-height:94px;background:linear-gradient(145deg,#1c2b40,#101a2a);border-color:#43516a}
+.security-state{font-size:12px;padding:7px 12px;border-radius:20px;border:1px solid}
+.security-state.is-on{color:#75e2b6;border-color:#27785d;background:#12372d}
+.security-state.is-off{color:#ffd27b;border-color:#8c682e;background:#342816}
+.security-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:760px}
+.security-form .toolbar{grid-column:1/-1}
+.security-lock{max-width:520px;margin:7vh auto;padding:30px 24px;text-align:center;border:1px solid #8b6b36;border-radius:22px;background:linear-gradient(145deg,#19283e,#080e18);box-shadow:0 22px 55px #0008,inset 0 1px #fff2}
+.security-lock-mark{width:64px;height:64px;margin:0 auto 18px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(145deg,#ffe5a0,#a97829);color:#20180d;font-size:36px;font-weight:bold;box-shadow:0 6px 0 #68491e}
+.security-lock h2{color:var(--gold2)}
+.security-lock-form{display:flex;gap:10px;margin-top:22px}
+.security-lock-form .field{flex:1;min-width:0;text-align:center;letter-spacing:5px}
+.security-error{color:#ff8585}
+@media(max-width:700px){.security-form{grid-template-columns:1fr}.security-form .toolbar{grid-column:1}.security-lock{margin:4vh 4px;padding:22px 14px}.security-lock-form{flex-direction:column}.security-lock-form .btn{width:100%}}
