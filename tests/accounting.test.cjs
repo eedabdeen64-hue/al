@@ -29,6 +29,12 @@ const stores = {
 assert.equal(A.stockOnHand(7, stores), 12);
 assert.equal(A.partyBalance("عميل", "customer", { sales: [{ party: "عميل", amount: 100, paid: 40 }] }), 60);
 assert.equal(A.money(0.1 + 0.2), 0.3);
+const discountedInvoice = { amount: 90, subtotal: 100, discount: 10, paid: 50, party: "عميل الخصم" };
+assert.equal(discountedInvoice.subtotal - discountedInvoice.discount, discountedInvoice.amount);
+assert.equal(A.partyBalance("عميل الخصم", "customer", { sales: [discountedInvoice] }), 40);
+const discountedSummary = A.summarize({ sales: [discountedInvoice], products: [] });
+assert.equal(discountedSummary.saleTotal, 90);
+assert.equal(discountedSummary.grossProfit, 90);
 const afterReturns = A.summarize({ sales:[{amount:100,paid:100,party:"عميل"}], purchases:[{amount:60,paid:60,party:"مورد"}], returns:[{kind:"sale",amount:20,party:"عميل"},{kind:"purchase",amount:10,party:"مورد"}], expenses:[{amount:5,kind:"expense"}] });
 assert.equal(afterReturns.saleTotal, 80);
 assert.equal(afterReturns.purchaseTotal, 50);
