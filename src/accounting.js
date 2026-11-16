@@ -12,8 +12,11 @@
     const expenses = stores.expenses || [];
     const income = expenses.filter(x => x.kind === "income");
     const costs = expenses.filter(x => x.kind !== "income");
-    const saleTotal = sum(sales);
-    const purchaseTotal = sum(purchases);
+    const returns = stores.returns || [];
+    const salesReturns = returns.filter(x => x.kind === "sale");
+    const purchaseReturns = returns.filter(x => x.kind === "purchase");
+    const saleTotal = money(sum(sales) - sum(salesReturns));
+    const purchaseTotal = money(sum(purchases) - sum(purchaseReturns));
     const expenseTotal = sum(costs);
     const otherIncome = sum(income);
     const cashIn = sales.reduce((n, x) => n + cents(x.paid ?? x.amount), 0) / 100 + otherIncome;
@@ -43,9 +46,13 @@
     return (Number(product.openingQty) || 0) + bought - sold + returnedFromCustomer - returnedToSupplier;
   }
   function partyBalance(partyName, type, stores) {
-    const source = type === "customer" ? (stores.sales || []) : (stores.purchases || []);
+    const customer = type === "customer";
+    const source = customer ? (stores.sales || []) : (stores.purchases || []);
+    const returns = (stores.returns || []).filter(x => x.kind === (customer ? "sale" : "purchase"));
     const paidField = row => cents(row.paid ?? row.amount);
-    return source.filter(x => x.party === partyName).reduce((n, x) => n + cents(x.amount) - paidField(x), 0) / 100;
+    const gross = source.filter(x => x.party === partyName).reduce((n, x) => n + cents(x.amount) - paidField(x), 0);
+    const returned = returns.filter(x => x.party === partyName).reduce((n, x) => n + cents(x.amount), 0);
+    return (gross - returned) / 100;
   }
   root.AlAbdeenAccounting = { cents, money, sum, validAmount, summarize, stockOnHand, partyBalance };
 })(typeof window !== "undefined" ? window : globalThis);
