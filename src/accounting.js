@@ -28,7 +28,9 @@
     const productCost = id => Number((stores.products || []).find(p => String(p.id) === String(id))?.cost) || 0;
     // تكلفة كل فاتورة تُحسب من لقطة التكلفة المحفوظة وقت البيع؛ السجلات القديمة فقط تستخدم تكلفة الصنف الحالية كتقدير.
     const rowCost = x => x.costTotal != null ? cents(x.costTotal) : cents((Number(x.unitCost ?? productCost(x.productId)) || 0) * (Number(x.qty) || 0));
-    const cogs = (sales.reduce((n, x) => n + rowCost(x), 0) - salesReturns.reduce((n, x) => n + rowCost(x), 0)) / 100;
+    const hasCostBasis = sales.some(x => x.costTotal != null || x.unitCost != null || productCost(x.productId) > 0);
+    // للسجلات القديمة التي لا تحتوي أي تكلفة صنف محفوظة، نستخدم صافي المشتريات كتقدير مؤقت بدل إظهار تكلفة صفرية.
+    const cogs = hasCostBasis ? (sales.reduce((n, x) => n + rowCost(x), 0) - salesReturns.reduce((n, x) => n + rowCost(x), 0)) / 100 : purchaseTotal;
     return {
       saleTotal: money(saleTotal), purchaseTotal: money(purchaseTotal),
       expenseTotal: money(expenseTotal), otherIncome: money(otherIncome),
