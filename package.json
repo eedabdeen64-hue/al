@@ -5,7 +5,7 @@
   "main": "electron/main.cjs",
   "scripts": {
     "start": "electron .",
-    "build:win": "electron-builder --win nsis",
+    "build:win": "electron-builder --win nsis --publish never",
     "build:linux": "electron-builder --linux AppImage",
     "test": "node tests/accounting.test.cjs",
     "build:android": "npx cap sync android"
