@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "build:win": "electron-builder --win nsis",
-    "build:linux": "electron-builder --linux AppImage"
+    "build:linux": "electron-builder --linux AppImage",
+    "test": "node tests/accounting.test.cjs"
   },
   "devDependencies": {
     "electron": "^36.0.0",
