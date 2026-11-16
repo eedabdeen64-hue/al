@@ -29,5 +29,5 @@ const afterReturns = A.summarize({ sales:[{amount:100,paid:100,party:"عميل"}
 assert.equal(afterReturns.saleTotal, 80);
 assert.equal(afterReturns.purchaseTotal, 50);
 assert.equal(afterReturns.operatingResult, 25);
-assert.equal(A.partyBalance("عميل","customer",{sales:[{amount:100,paid:40,party:"عميل"}],returns:[{kind:"sale",amount:10,party:"عميل"}]}),50);
+assert.equal(A.partyBalance("عميل","customer",{sales:[{amount:100,paid:40,party:"عميل"}],returns:[{kind:"sale",amount:10,party:"عميل"}],payments:[{party:"عميل",partyType:"customer",amount:15}]}),35);
 console.log("Accounting engine tests passed");
