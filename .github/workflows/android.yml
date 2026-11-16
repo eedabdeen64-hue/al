@@ -26,6 +26,10 @@ jobs:
       - uses: android-actions/setup-android@v3
       - name: Install dependencies
         run: npm install
+      - name: Check application JavaScript syntax and accounting tests
+        run: |
+          node --check src/app.js
+          npm test
       - name: Prepare web assets
         run: |
           mkdir -p www/src
