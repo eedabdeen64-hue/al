@@ -6,6 +6,7 @@ on:
     paths:
       - 'index.html'
       - 'src/**'
+      - 'tests/**'
       - 'electron/**'
       - 'package.json'
       - '.github/workflows/windows.yml'
