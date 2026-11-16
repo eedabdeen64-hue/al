@@ -24,7 +24,7 @@
     const treasuryEntries = stores.treasury || [];
     const treasuryNet = treasuryEntries.reduce((n, x) => n + (x.direction === "out" ? -cents(x.amount) : cents(x.amount)), 0) / 100;
     const opening = Number(stores.openingTreasury || 0);
-    const stock = (stores.products || []).reduce((n, p) => n + cents(stockOnHand(p.id, stores) * (Number(p.cost) || 0)), 0) / 100;
+    const stock = (stores.products || []).reduce((n, p) => { const qty = p.id == null ? (Number(p.qty) || 0) : stockOnHand(p.id, stores); return n + cents(qty * (Number(p.cost) || 0)); }, 0) / 100;
     const cogs = sales.reduce((n, x) => n + cents(x.costTotal ?? ((Number(x.unitCost) || 0) * (Number(x.qty) || 0))), 0) / 100 - salesReturns.reduce((n, x) => n + cents(x.costTotal ?? ((Number(x.unitCost) || 0) * (Number(x.qty) || 0))), 0) / 100;
     return {
       saleTotal: money(saleTotal), purchaseTotal: money(purchaseTotal),
