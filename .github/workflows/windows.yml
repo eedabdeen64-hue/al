@@ -22,6 +22,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm install
+      - name: Run accounting regression tests
+        run: npm test
       - name: Build installer
         run: npm run build:win
       - name: Upload installer
