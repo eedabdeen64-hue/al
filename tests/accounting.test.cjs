@@ -2,7 +2,7 @@ const assert = require("node:assert/strict");
 require("../src/accounting.js");
 const A = globalThis.AlAbdeenAccounting;
 const s = A.summarize({
-  sales: [{ amount: 120.10, paid: 100 }, { amount: 79.90, paid: 79.90 }],
+  sales: [{ amount: 120.10, paid: 100, costTotal: 60 }, { amount: 79.90, paid: 79.90, costTotal: 20 }],
   purchases: [{ amount: 80, paid: 50 }],
   expenses: [{ amount: 10, kind: "expense" }, { amount: 5, kind: "income" }],
   treasury: [{ amount: 25, direction: "in" }, { amount: 5, direction: "out" }],
