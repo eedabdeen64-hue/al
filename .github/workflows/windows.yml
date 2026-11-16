@@ -21,6 +21,8 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
+      - name: Check application JavaScript syntax
+        run: node --check src/app.js
       - name: Run accounting regression tests
         run: npm test
       - name: Build installer
