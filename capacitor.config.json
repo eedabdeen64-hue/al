@@ -1,0 +1,8 @@
+{
+  "appId": "com.eedabdeen.management",
+  "appName": "آل عابدين للإدارة الشاملة",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
