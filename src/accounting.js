@@ -52,7 +52,8 @@
     const paidField = row => cents(row.paid ?? row.amount);
     const gross = source.filter(x => x.party === partyName).reduce((n, x) => n + cents(x.amount) - paidField(x), 0);
     const returned = returns.filter(x => x.party === partyName).reduce((n, x) => n + cents(x.amount), 0);
-    return (gross - returned) / 100;
+    const settlements = (stores.payments || []).filter(x => x.party === partyName && x.partyType === type).reduce((n, x) => n + cents(x.amount), 0);
+    return (gross - returned - settlements) / 100;
   }
   root.AlAbdeenAccounting = { cents, money, sum, validAmount, summarize, stockOnHand, partyBalance };
 })(typeof window !== "undefined" ? window : globalThis);
