@@ -24,12 +24,15 @@
     const treasuryEntries = stores.treasury || [];
     const treasuryNet = treasuryEntries.reduce((n, x) => n + (x.direction === "out" ? -cents(x.amount) : cents(x.amount)), 0) / 100;
     const opening = Number(stores.openingTreasury || 0);
-    const stock = (stores.products || []).reduce((n, p) => n + cents((Number(p.qty) || 0) * (Number(p.cost) || 0)), 0) / 100;
+    const stock = (stores.products || []).reduce((n, p) => n + cents(stockOnHand(p.id, stores) * (Number(p.cost) || 0)), 0) / 100;
+    const cogs = sales.reduce((n, x) => n + cents(x.costTotal ?? ((Number(x.unitCost) || 0) * (Number(x.qty) || 0))), 0) / 100 - salesReturns.reduce((n, x) => n + cents(x.costTotal ?? ((Number(x.unitCost) || 0) * (Number(x.qty) || 0))), 0) / 100;
     return {
       saleTotal: money(saleTotal), purchaseTotal: money(purchaseTotal),
       expenseTotal: money(expenseTotal), otherIncome: money(otherIncome),
       grossMovement: money(saleTotal - purchaseTotal),
-      operatingResult: money(saleTotal + otherIncome - purchaseTotal - expenseTotal),
+      costOfGoodsSold: money(cogs),
+      grossProfit: money(saleTotal - cogs),
+      operatingResult: money(saleTotal - cogs + otherIncome - expenseTotal),
       cashIn: money(cashIn), cashOut: money(cashOut),
       treasuryBalance: money(opening + treasuryNet),
       stockValueAtCost: money(stock),
