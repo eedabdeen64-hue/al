@@ -16,6 +16,10 @@ assert.equal(s.otherIncome, 5);
 assert.equal(s.operatingResult, 115);
 assert.equal(s.treasuryBalance, 120);
 assert.equal(s.stockValueAtCost, 60);
+const profit = A.summarize({sales:[{amount:200,qty:2,unitCost:50,costTotal:100}],products:[{id:1,openingQty:4,cost:50}]});
+assert.equal(profit.costOfGoodsSold,100);
+assert.equal(profit.grossProfit,100);
+assert.equal(profit.stockValueAtCost,200);
 const stores = {
   products: [{ id: 7, openingQty: 10 }],
   purchases: [{ productId: 7, qty: 5 }],
