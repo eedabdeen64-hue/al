@@ -7,11 +7,13 @@
     "start": "electron .",
     "build:win": "electron-builder --win nsis",
     "build:linux": "electron-builder --linux AppImage",
-    "test": "node tests/accounting.test.cjs"
+    "test": "node tests/accounting.test.cjs",
+    "build:android": "npx cap sync android"
   },
   "devDependencies": {
     "electron": "^36.0.0",
-    "electron-builder": "^26.0.12"
+    "electron-builder": "^26.0.12",
+    "@capacitor/cli": "^7.4.3"
   },
   "build": {
     "appId": "com.eedabdeen.management",
@@ -35,5 +37,9 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     }
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/android": "^7.4.3"
   }
 }
