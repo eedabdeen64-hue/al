@@ -41,3 +41,12 @@ assert.equal(afterReturns.purchaseTotal, 50);
 assert.equal(afterReturns.operatingResult, 25);
 assert.equal(A.partyBalance("عميل","customer",{sales:[{amount:100,paid:40,party:"عميل"}],returns:[{kind:"sale",amount:10,party:"عميل"}],payments:[{party:"عميل",partyType:"customer",amount:15}]}),35);
 console.log("Accounting engine tests passed");
+
+const adjustedStock = A.stockOnHand(7, {
+  products: [{ id: 7, openingQty: 10 }],
+  purchases: [{ productId: 7, qty: 5 }],
+  sales: [{ productId: 7, qty: 4 }],
+  returns: [{ kind: "sale", productId: 7, qty: 2 }, { kind: "purchase", productId: 7, qty: 1 }],
+  inventoryAdjustments: [{ productId: 7, qtyDelta: 3 }, { productId: 7, qtyDelta: -2 }]
+});
+assert.equal(adjustedStock, 13);
