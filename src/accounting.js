@@ -51,7 +51,8 @@
     const sold = (stores.sales || []).filter(x => String(x.productId) === String(productId)).reduce((n, x) => n + (Number(x.qty) || 0), 0);
     const returnedFromCustomer = (stores.returns || []).filter(x => x.kind === "sale" && String(x.productId) === String(productId)).reduce((n, x) => n + (Number(x.qty) || 0), 0);
     const returnedToSupplier = (stores.returns || []).filter(x => x.kind === "purchase" && String(x.productId) === String(productId)).reduce((n, x) => n + (Number(x.qty) || 0), 0);
-    return (Number(product.openingQty) || 0) + bought - sold + returnedFromCustomer - returnedToSupplier;
+    const adjustments = (stores.inventoryAdjustments || []).filter(x => String(x.productId) === String(productId)).reduce((n, x) => n + (Number(x.qtyDelta) || 0), 0);
+    return (Number(product.openingQty) || 0) + bought - sold + returnedFromCustomer - returnedToSupplier + adjustments;
   }
   function partyBalance(partyName, type, stores) {
     const customer = type === "customer";
